@@ -1,0 +1,31 @@
+services:
+  app:
+    container_name: cyancast_app
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    user: "${UID:-1000}:${GID:-1000}"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./web:/app
+      - /app/node_modules # For dev mode, if we install locally, mapping avoids overriding container node_modules
+      - ./data/mpv_socket:/tmp/mpv/socket
+    environment:
+      - NODE_ENV=production
+      - HOSTNAME=0.0.0.0
+    command: sh -c "npm run build && npm start"
+    restart: always
+
+  player:
+    container_name: cyancast_player
+    build:
+      context: ./player
+      dockerfile: Dockerfile
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./data/mpv_socket:/tmp/mpv/socket
+      - ${XDG_RUNTIME_DIR:-/run/user/1000}/pulse/native:/run/user/1000/pulse/native
+    environment:
+      - PULSE_SERVER=unix:/run/user/1000/pulse/native
+    restart: always
