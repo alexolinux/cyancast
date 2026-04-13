@@ -61,5 +61,5 @@ This project was created for personal exploration and Home Lab use only.
 ## 📄 License
 
 Copyright (c) 2026 Alex Mendes
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
