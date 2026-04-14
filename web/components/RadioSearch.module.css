@@ -1,0 +1,189 @@
+/* ===== SEARCH CONTAINER ===== */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+}
+
+/* ===== SEARCH FORM ===== */
+.searchForm {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.searchWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 540px;
+}
+
+.searchButton {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--neon-cyan);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    min-height: 44px;
+    transition: background 0.2s ease;
+    z-index: 2;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .searchButton:hover {
+        background: rgba(0, 255, 255, 0.1);
+    }
+}
+
+.searchButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ===== RESULTS GRID ===== */
+.gridWrapper {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* ===== LOADING SKELETON ===== */
+.skeleton {
+    padding: 22px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    min-height: 180px;
+}
+
+.skeletonCircle {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.04) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+}
+
+.skeletonLine {
+    width: 70%;
+    height: 16px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.04) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    animation-delay: 0.2s;
+}
+
+.skeletonLineShort {
+    width: 45%;
+    height: 12px;
+    border-radius: 6px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 25%, rgba(255, 255, 255, 0.08) 50%, rgba(255, 255, 255, 0.04) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+    animation-delay: 0.4s;
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* ===== EMPTY STATE ===== */
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+}
+
+.emptyState p {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.emptyState span {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* ===== LOAD MORE ===== */
+.loadMoreButton {
+    padding: 14px 36px;
+    cursor: pointer;
+    background: var(--glass-bg-solid);
+    font-size: 0.95rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 48px;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.loadMoreButton:active {
+    transform: scale(0.97);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .loadMoreButton:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* ===== SCREEN READER ONLY ===== */
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+    .container {
+        padding: 0 16px;
+        gap: 24px;
+    }
+
+    .skeleton {
+        min-height: 160px;
+        padding: 16px 14px;
+    }
+
+    .skeletonCircle {
+        width: 64px;
+        height: 64px;
+    }
+
+    .emptyState {
+        padding: 40px 16px;
+    }
+
+    .loadMoreButton {
+        width: 100%;
+        justify-content: center;
+    }
+}

@@ -12,6 +12,7 @@ export interface Station {
     favicon: string;
     tags: string;
     country: string;
+    bitrate: number;
 }
 
 export type OutputMode = 'server' | 'client';

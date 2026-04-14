@@ -9,10 +9,16 @@
   --glass-bg-solid: rgba(11, 12, 16, 0.85);
   --text-primary: #ffffff;
   --text-secondary: #aaaaaa;
+  --player-bar-height: 80px;
 }
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -22,7 +28,8 @@ body {
   font-family: var(--font-inter), sans-serif;
   min-height: 100vh;
   overflow-x: hidden;
-  padding-bottom: 100px; /* Space for player bar */
+  padding-bottom: calc(var(--player-bar-height) + 20px);
+  padding-bottom: calc(var(--player-bar-height) + 20px + env(safe-area-inset-bottom, 0px));
 }
 
 /* Premium Mesh Gradient Background */
@@ -79,9 +86,11 @@ a {
   transition: all 0.3s ease;
 }
 
-.glass-panel:hover {
-  border-color: var(--glass-border-hover);
-  box-shadow: 0 4px 20px var(--neon-cyan-glow);
+@media (hover: hover) and (pointer: fine) {
+  .glass-panel:hover {
+    border-color: var(--glass-border-hover);
+    box-shadow: 0 4px 20px var(--neon-cyan-glow);
+  }
 }
 
 .player-bar {
@@ -98,25 +107,32 @@ a {
   align-items: center;
   justify-content: space-between;
   z-index: 1000;
-  height: 80px;
+  height: var(--player-bar-height);
 }
 
 /* Search Input */
 .search-input {
   width: 100%;
-  max-width: 500px;
-  padding: 12px 20px;
-  font-size: 16px;
+  padding: 14px 52px 14px 22px;
+  font-size: 16px; /* Prevents iOS zoom on focus */
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--glass-border);
   border-radius: 30px;
   color: white;
   outline: none;
   transition: all 0.3s ease;
+  min-height: 48px;
 }
 .search-input:focus {
   border-color: var(--neon-cyan);
   box-shadow: 0 0 15px var(--neon-cyan-glow);
+}
+.search-input:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
 }
 
 /* Buttons */
@@ -131,10 +147,14 @@ a {
   padding: 10px;
   border-radius: 50%;
   transition: all 0.2s;
+  min-width: 44px;
+  min-height: 44px;
 }
-.btn-icon:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--neon-cyan);
+@media (hover: hover) and (pointer: fine) {
+  .btn-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--neon-cyan);
+  }
 }
 .btn-icon:disabled {
   opacity: 0.5;
@@ -194,10 +214,69 @@ input[type=range]::-webkit-slider-runnable-track {
   overflow: hidden;
 }
 
-/* Radio Grid layout */
+/* Radio Grid layout — responsive */
 .radio-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px 0;
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* Tablet */
+@media (max-width: 768px) {
+  .radio-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  :root {
+    --player-bar-height: 130px;
+  }
+
+  body {
+    padding-bottom: calc(var(--player-bar-height) + 16px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .radio-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 380px) {
+  .radio-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* ===== ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Focus-visible for keyboard users */
+*:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
 }
