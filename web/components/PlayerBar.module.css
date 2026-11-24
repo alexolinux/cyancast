@@ -268,7 +268,7 @@
 }
 
 /* Range input slider */
-.volumeSlider {
+.volumeSliderWrapper .volumeSlider {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
@@ -278,21 +278,22 @@
     margin: 0;
     position: relative;
     z-index: 2;
+    touch-action: none;
 }
 
-.volumeSlider:focus {
+.volumeSliderWrapper .volumeSlider:focus {
     outline: none;
 }
 
 /* Webkit/Chrome/Safari/Edge */
-.volumeSlider::-webkit-slider-runnable-track {
+.volumeSliderWrapper .volumeSlider::-webkit-slider-runnable-track {
     -webkit-appearance: none;
     height: 6px;
     background: transparent;
     border-radius: 3px;
 }
 
-.volumeSlider::-webkit-slider-thumb {
+.volumeSliderWrapper .volumeSlider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
     width: 18px;
@@ -307,20 +308,20 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .volumeSlider::-webkit-slider-thumb:hover {
+    .volumeSliderWrapper .volumeSlider::-webkit-slider-thumb:hover {
         transform: scale(1.15);
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 255, 0.7);
     }
 }
 
 /* Firefox */
-.volumeSlider::-moz-range-track {
+.volumeSliderWrapper .volumeSlider::-moz-range-track {
     height: 6px;
     background: transparent;
     border-radius: 3px;
 }
 
-.volumeSlider::-moz-range-thumb {
+.volumeSliderWrapper .volumeSlider::-moz-range-thumb {
     width: 18px;
     height: 18px;
     border-radius: 50%;
@@ -332,7 +333,7 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-    .volumeSlider::-moz-range-thumb:hover {
+    .volumeSliderWrapper .volumeSlider::-moz-range-thumb:hover {
         transform: scale(1.15);
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 255, 255, 0.7);
     }
@@ -509,7 +510,7 @@
 /* ===== MOBILE: TWO-ROW PLAYER BAR ===== */
 @media (max-width: 600px) {
     .playerBar {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         grid-template-rows: auto auto;
         height: auto;
         padding: 12px 16px;
@@ -523,6 +524,7 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        min-width: 0;
         gap: 12px;
     }
 
@@ -568,24 +570,27 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        min-width: 0;
         gap: 10px;
     }
 
     .rightSection {
         justify-self: auto;
         width: 100%;
+        min-width: 0;
         justify-content: space-between;
     }
 
     .volumeSection {
         flex: 1;
+        min-width: 0;
         padding: 6px 10px;
         gap: 6px;
     }
 
     .volumeSliderWrapper {
         flex: 1;
-        min-width: 80px;
+        min-width: 60px;
         width: auto;
     }
 
